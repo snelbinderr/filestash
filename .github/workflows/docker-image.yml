@@ -19,10 +19,10 @@ jobs:
     - name: "generate build name"
       run: 
     - name: Build the Docker image
-      run: docker build . --file ./docker/Dockerfile --tag "ghcr.io/snelbinderr/filestash:$RELEASE_DATE" --label "org.opencontainers.image.source=https://github.com/snelbinderr/filestash" --label "org.opencontainers.image.description=snelbinderr's filestash image" --label "org.opencontainers.image.licenses=AGPL-3.0"
+      run: docker build . --file ./docker/Dockerfile --tag "ghcr.io/snelbinderr/filestash:$RELEASE_DATE" --tag "ghcr.io/snelbinderr/filestash:latest" --label "org.opencontainers.image.source=https://github.com/snelbinderr/filestash" --label "org.opencontainers.image.description=snelbinderr's filestash image" --label "org.opencontainers.image.licenses=AGPL-3.0"
     - name: Log in to registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: "Push to github"
-      run: docker push "ghcr.io/snelbinderr/filestash:$RELEASE_DATE"
+      run: docker push --all-tags "ghcr.io/snelbinderr/filestash"
            
 
