@@ -20,9 +20,9 @@ jobs:
       run: 
     - name: Build the Docker image
       run: docker build . --file ./docker/Dockerfile --tag "ghcr.io/snelbinderr/filestash:$RELEASE_DATE" --label "org.opencontainers.image.source=https://github.com/snelbinderr/filestash" --label "org.opencontainers.image.description=snelbinderr's filestash image" --label "org.opencontainers.image.licenses=MIT"
+    - name: Log in to registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: "Push to github"
       run: docker push "ghcr.io/snelbinderr/filestash:$RELEASE_DATE"
-      env: 
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            
 
