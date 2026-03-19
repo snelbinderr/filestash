@@ -12,7 +12,7 @@ build:
 	make deps_zeta
 
 deps_zeta:
-	[ -d lib/lowa ] || mkdir lib/lowa
+	[ -d lib/lowa ] || mkdir lib/lowa -p
 	curl https://cdn.zetaoffice.net/zetaoffice_latest/soffice.js > lib/lowa/soffice.js
 	curl https://cdn.zetaoffice.net/zetaoffice_latest/soffice.wasm > lib/lowa/soffice.wasm.br
 	curl https://cdn.zetaoffice.net/zetaoffice_latest/soffice.data.js.metadata > lib/lowa/soffice.data.js.metadata
