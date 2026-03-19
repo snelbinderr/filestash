@@ -18,12 +18,10 @@ RUN apt-get update > /dev/null && \
     cp config/config.json ./dist/data/state/config/config.json
 
 # STEP3: BUILD PLUGINS
-FROM emscripten/emsdk AS builder_final
+FROM unoplatform/wasm-build AS builder_final
 WORKDIR /home/filestash/
 COPY --from=builder_backend /home/filestash/ .
-RUN apt update > /dev/null && \
-    apt install -y ninja-build > /dev/null && \
-    mkdir -p /home/filestash/dist/data/state/plugins && \
+RUN mkdir -p /home/filestash/dist/data/state/plugins && \
     cd /home/filestash/server/plugin/plg_application_office/ && make
 
 # STEP4: BUILD PROD IMAGE
