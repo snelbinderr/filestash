@@ -25,7 +25,9 @@ RUN apt-get update > /dev/null && \
     apt-get install -y curl make > /dev/null 2>&1 && \
     apt-get install -y libclang-dev libclang-rt-dev-wasm32 > /dev/null 2>&1 && \
     mkdir -p ./dist/data/state/plugins && \
-    cd ./server/plugin/plg_application_office/ && make
+    cd ./server/plugin/plg_application_office/ && \
+    make build && \
+    make install
 
 # STEP4: BUILD PROD IMAGE
 FROM debian:stable-slim
