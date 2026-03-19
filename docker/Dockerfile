@@ -1,7 +1,7 @@
 # STEP1: CLONE THE CODE
 FROM alpine/git as builder_prepare
 WORKDIR /home/
-ARG GIT_REPO=https://github.com/mickael-kerjean/filestash
+ARG GIT_REPO=https://github.com/snelbinderr/filestash
 ARG GIT_BRANCH=master
 RUN git clone --depth 1 --single-branch --branch ${GIT_BRANCH} ${GIT_REPO}
 
@@ -19,7 +19,7 @@ RUN apt-get update > /dev/null && \
 
 # STEP3: BUILD PROD IMAGE
 FROM debian:stable-slim
-MAINTAINER mickael@kerjean.me
+MAINTAINER github.com/snelbinderr
 WORKDIR /app/
 COPY --from=builder_backend /home/filestash/dist/ .
 RUN apt-get update > /dev/null && \
