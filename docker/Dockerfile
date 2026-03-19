@@ -23,9 +23,9 @@ WORKDIR /home/filestash/
 COPY --from=builder_backend /home/filestash/ .
 RUN apt-get update > /dev/null && \
     apt-get install -y curl make > /dev/null 2>&1 && \
-    apt-get install -y libclang-dev > /dev/null 2>&1 && \
-    mkdir -p /home/filestash/dist/data/state/plugins && \
-    cd /home/filestash/server/plugin/plg_application_office/ && make
+    apt-get install -y libclang-dev libclang-rt-dev-wasm32 > /dev/null 2>&1 && \
+    mkdir -p ./dist/data/state/plugins && \
+    cd ./server/plugin/plg_application_office/ && make
 
 # STEP4: BUILD PROD IMAGE
 FROM debian:stable-slim
