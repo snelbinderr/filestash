@@ -14,9 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: set release date
+      run: echo "RELEASE_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+    - name: "generate build name"
+      run: 
     - name: Build the Docker image
-      run: docker build . --file ./docker/Dockerfile --tag snelbinderr/filestash:$(date +%s) --label "org.opencontainers.image.source=https://github.com/snelbinderr/filestash" --label "org.opencontainers.image.description=snelbinderr's filestash image" --label "org.opencontainers.image.licenses=MIT"
+      run: docker build . --file ./docker/Dockerfile --tag "ghcr.io/snelbinderr/filestash:$RELEASE_DATE" --label "org.opencontainers.image.source=https://github.com/snelbinderr/filestash" --label "org.opencontainers.image.description=snelbinderr's filestash image" --label "org.opencontainers.image.licenses=MIT"
     - name: "Push to github"
-      run: docker push .
+      run: docker push "ghcr.io/snelbinderr/filestash:$RELEASE_DATE"
            
 
