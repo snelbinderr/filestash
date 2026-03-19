@@ -21,7 +21,9 @@ RUN apt-get update > /dev/null && \
 FROM emscripten/emsdk AS builder_final
 WORKDIR /home/filestash/
 COPY --from=builder_backend /home/filestash/ .
-RUN mkdir -p /home/filestash/dist/data/state/plugins && \
+RUN apt update > /dev/null && \
+    apt install -y ninja-build > /dev/null && \
+    mkdir -p /home/filestash/dist/data/state/plugins && \
     cd /home/filestash/server/plugin/plg_application_office/ && make
 
 # STEP4: BUILD PROD IMAGE
