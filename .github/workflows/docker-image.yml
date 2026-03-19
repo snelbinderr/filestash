@@ -22,5 +22,7 @@ jobs:
       run: docker build . --file ./docker/Dockerfile --tag "ghcr.io/snelbinderr/filestash:$RELEASE_DATE" --label "org.opencontainers.image.source=https://github.com/snelbinderr/filestash" --label "org.opencontainers.image.description=snelbinderr's filestash image" --label "org.opencontainers.image.licenses=MIT"
     - name: "Push to github"
       run: docker push "ghcr.io/snelbinderr/filestash:$RELEASE_DATE"
+      env: 
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            
 
