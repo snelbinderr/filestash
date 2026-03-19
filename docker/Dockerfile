@@ -18,10 +18,13 @@ RUN apt-get update > /dev/null && \
     cp config/config.json ./dist/data/state/config/config.json
 
 # STEP3: BUILD PLUGINS
-FROM unoplatform/wasm-build AS builder_final
+FROM emscripten/emsdk AS builder_final
 WORKDIR /home/filestash/
 COPY --from=builder_backend /home/filestash/ .
-RUN mkdir -p /home/filestash/dist/data/state/plugins && \
+RUN apt-get update > /dev/null && \
+    apt-get install -y curl make > /dev/null 2>&1 && \
+    apt-get install -y libclang-dev > /dev/null 2>&1 && \
+    mkdir -p /home/filestash/dist/data/state/plugins && \
     cd /home/filestash/server/plugin/plg_application_office/ && make
 
 # STEP4: BUILD PROD IMAGE
