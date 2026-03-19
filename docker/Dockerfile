@@ -17,11 +17,18 @@ RUN apt-get update > /dev/null && \
     mkdir -p ./dist/data/state/config/ && \
     cp config/config.json ./dist/data/state/config/config.json
 
-# STEP3: BUILD PROD IMAGE
+# STEP3: BUILD PLUGINS
+FROM emscripten/emsdk AS builder_final
+WORKDIR /home/filestash/
+COPY --from=builder_backend /home/filestash/ .
+RUN mkdir -p /home/filestash/dist/data/state/plugins && \
+    cd /home/filestash/server/plugin/plg_application_office/ && make
+
+# STEP4: BUILD PROD IMAGE
 FROM debian:stable-slim
 MAINTAINER github.com/snelbinderr
 WORKDIR /app/
-COPY --from=builder_backend /home/filestash/dist/ .
+COPY --from=builder_final /home/filestash/dist/ .
 RUN apt-get update > /dev/null && \
     apt-get install -y --no-install-recommends apt-utils && \
     apt-get install -y curl ffmpeg libjpeg-dev libtiff-dev libpng-dev libwebp-dev libraw-dev libheif-dev libgif-dev && \
