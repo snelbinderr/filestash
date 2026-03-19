@@ -7,7 +7,8 @@ install:
 	mv application_office.zip ../../../dist/data/state/plugins/
 
 build:
-	clang --target=wasm32 -O3 -nostdlib -Wl,--no-entry -Wl,--export=middleware -o middleware.wasm middleware.c
+	ls
+	clang --target=wasm32 -O3 -nostdlib -Wl,--no-entry -Wl,--export=middleware -o middleware.wasm ./middleware.c
 	make deps_zeta
 
 deps_zeta:
