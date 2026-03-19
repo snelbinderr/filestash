@@ -22,7 +22,7 @@ FROM emscripten/emsdk AS builder_final
 WORKDIR /home/filestash/
 COPY --from=builder_backend /home/filestash/ .
 RUN apt-get update > /dev/null && \
-    apt-get install -y curl make clang wasi-libc > /dev/null 2>&1 && \
+    apt-get install -y curl make clang lld > /dev/null 2>&1 && \
     apt-get install -y libclang-rt-dev-wasm32 > /dev/null 2>&1 && \
     mkdir -p ./dist/data/state/plugins && \
     cd ./server/plugin/plg_application_office/ && \
